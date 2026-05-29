@@ -17,10 +17,10 @@ public class TestOrdenDeCompra {
         ordenDeCompra.confirmarCompra();
         ordenDeCompra.enviar();
         assertEquals(100, ordenDeCompra.monto());
-        assertEquals(OrdenDeCompra.Estado.ENVIADA, ordenDeCompra.estado());
+        assertEquals("Enviada", ordenDeCompra.estado().toString());
     }
 
-    @DisplayName("Test intenta agregar un producto en una orden enviada")
+    @DisplayName("Test agregar un producto en una orden enviada")
     @Test
     void testAgregarProductoEstadoEnviado() {
         var producto = new Producto("laptop", 200);
@@ -38,7 +38,7 @@ public class TestOrdenDeCompra {
 
     }
 
-    @DisplayName("Test confirma una orden ya confirmada")
+    @DisplayName("Test confirmar una orden ya confirmada")
     @Test
     void testConfirmarOrden() {
         var ordenDeCompra = new OrdenDeCompra();
@@ -51,7 +51,7 @@ public class TestOrdenDeCompra {
 
     }
 
-    @DisplayName("Test confirma una orden sin productos")
+    @DisplayName("Test confirmar una orden sin productos")
     @Test
     void testConfirmaOrdenSinProductos() {
         var ordenDeCompra = new OrdenDeCompra();
@@ -63,7 +63,7 @@ public class TestOrdenDeCompra {
         assertEquals(OrdenDeCompra.MSG_ERROR_SIN_PRODUCTOS, e.getMessage());
     }
 
-    @DisplayName("Test envia una orden sin confirmar")
+    @DisplayName("Test enviar una orden sin confirmar")
     @Test
     void testEnviarSinConfirmar() {
         var ordenDeCompra = new OrdenDeCompra();
@@ -74,29 +74,37 @@ public class TestOrdenDeCompra {
         assertEquals(OrdenDeCompra.MSG_ERROR_ENVIAR, e.getMessage());
     }
 
-    @DisplayName("Test intenta cancelar una orden enviada")
+    @DisplayName("Test cancelar una orden enviada")
     @Test
     void testCancelarOrdenEnviada() {
         var ordenDeCompra = new OrdenDeCompra();
         ordenDeCompra.agregarProducto(new Producto("laptopMac", 1000));
         ordenDeCompra.confirmarCompra();
         ordenDeCompra.enviar();
-        var e = assertThrows(RuntimeException.class, () -> {
+        var e = assertThrows(IllegalStateException.class, () -> {
             ordenDeCompra.cancelar();
         });
         assertEquals(OrdenDeCompra.MSG_ERROR_CANCELAR, e.getMessage());
     }
 
-    @DisplayName("Test intenta cancelar una orden dos veces")
+    @DisplayName("Test cancelar una orden dos veces")
     @Test
     void testCancelarOrdenCancelada() {
         var ordenDeCompra = new OrdenDeCompra();
         ordenDeCompra.agregarProducto(new Producto("laptopMac", 1000));
         ordenDeCompra.confirmarCompra();
         ordenDeCompra.cancelar();
-        var e = assertThrows(RuntimeException.class, () -> {
+        var e = assertThrows(IllegalStateException.class, () -> {
             ordenDeCompra.cancelar();
         });
         assertEquals(OrdenDeCompra.MSG_ERROR_CANCELAR, e.getMessage());
+    }
+
+    @DisplayName("Test cancelar una orden iniciada")
+    @Test
+    void testCancelarOrdenIniciada() {
+        var ordenDeCompra = new OrdenDeCompra();
+        ordenDeCompra.cancelar();
+        assertEquals("Cancelada", ordenDeCompra.estado().toString());
     }
 }

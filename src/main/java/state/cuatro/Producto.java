@@ -10,9 +10,9 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String descripcion() {
-        return this.descripcion;
-    }
+//    public String descripcion() {
+//        return this.descripcion;
+//    }
 
     public double precio() {
         return this.precio;
