@@ -10,19 +10,16 @@ public class Golondrina {
     }
 
     public void comer() {
-        //implementar
         //Cuando come, recupera 5 joules por cada gramo que come
-        // golondrina debil - su deseo es comer, 50 gr es suficiente
-        this.energia += (COEFICIENTE * 50);
+        this.energia += (5 * 50);
     }
 
     public void volar() {
-        //implementar
-        //golondrina eufórica - su deseo es volar 5  km y volver
+
         //Cuando vuela, consume
         //un joule por cada kilómetro volado, más 10 joules fijos en cada vuelo debido al esfuerzo por
         //comenzar a volar.
-        this.energia -= (5 * 2) + JOULES_ESFUERZO_INICIAL;
+        this.energia -= (10) + JOULES_ESFUERZO_INICIAL;
     }
 
     private Estado obtenerEstado() {
@@ -33,14 +30,7 @@ public class Golondrina {
 
     public void realizarDeseo() {
         obtenerEstado().realizarDeseo(this);
-//        //debil
-//        if (golondrinaDebil()) {
-//            comer();
-//        }
-//        //euforica
-//        if (golondrinaEuforica()) {
-//            volar();
-//        }
+
 
     }
 
