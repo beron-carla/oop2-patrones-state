@@ -28,7 +28,7 @@ public class Golondrina {
     private Estado obtenerEstado() {
         if (golondrinaDebil()) return new Debil();
         if (golondrinaEuforica()) return new Euforica();
-        return new Debil();
+        return new Normal();
     }
 
     public void realizarDeseo() {
