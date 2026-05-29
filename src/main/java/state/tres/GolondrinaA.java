@@ -12,28 +12,38 @@ public class GolondrinaA {
     public void comer() {
         //implementar
         //Cuando come, recupera 5 joules por cada gramo que come
+        // golondrina debil - su deseo es comer, 50 gr es suficiente
         this.energia += (COEFICIENTE * 50);
     }
 
     public void volar() {
         //implementar
+        //golondrina eufórica - su deseo es volar 5  km y volver
         //Cuando vuela, consume
-        //    //un joule por cada kilómetro volado, más 10 joules fijos en cada vuelo debido al esfuerzo por
-        //    //comenzar a volar.
+        //un joule por cada kilómetro volado, más 10 joules fijos en cada vuelo debido al esfuerzo por
+        //comenzar a volar.
         this.energia -= (5 * 2) + JOULES_ESFUERZO_INICIAL;
     }
 
     public void realizarDeseo() {
-        //implementar
-        if ((this.energia < 50) || (this.energia < 500)) {
-            // golondrina debil - su deseo es comer, 50 gr es suficiente
+
+        //debil
+        if (golondrinaDebil()) {
             comer();
         }
-        if (this.energia > 500) {
-            //golondrina eufórica - su deseo es volar 5  km y volver
+        //euforica
+        if (golondrinaEuforica()) {
             volar();
         }
 
+    }
+
+    private boolean golondrinaEuforica() {
+        return this.energia > 500;
+    }
+
+    private boolean golondrinaDebil() {
+        return (this.energia < 50) || (this.energia < 500);
     }
     //Toda golondrina es capaz de volar y comer y posee una energía medida en joules, la cual va
     //variando a medida que come o vuela. Al nacer, su energía es de 45 Joules. Cuando vuela, consume
